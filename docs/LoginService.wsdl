@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="LoginService" xmlns:s1="http://www.sap.com/SBO/DIS" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="LoginService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sap.com/SBO/DIS">
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="MsgHeader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="LoginService">
+      <s:import namespace="http://www.sap.com/SBO/DIS" />
+    <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatabaseServer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DatabaseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DatabaseType" >
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:enumeration value="dst_MSSQL" />
+                  <s:enumeration value="dst_DB_2" />
+                  <s:enumeration value="dst_SYBASE" />
+                  <s:enumeration value="dst_MSSQL2005" />
+                  <s:enumeration value="dst_MAXDB" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="DatabaseUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DatabasePassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Language" >
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:enumeration value="ln_Hebrew" />
+                  <s:enumeration value="ln_Spanish_Ar" />
+                  <s:enumeration value="ln_English" />
+                  <s:enumeration value="ln_Polish" />
+                  <s:enumeration value="ln_English_Sg" />
+                  <s:enumeration value="ln_Spanish_Pa" />
+                  <s:enumeration value="ln_English_Gb" />
+                  <s:enumeration value="ln_German" />
+                  <s:enumeration value="ln_Serbian" />
+                  <s:enumeration value="ln_Danish" />
+                  <s:enumeration value="ln_Norwegian" />
+                  <s:enumeration value="ln_Italian" />
+                  <s:enumeration value="ln_Hungarian" />
+                  <s:enumeration value="ln_Chinese" />
+                  <s:enumeration value="ln_Dutch" />
+                  <s:enumeration value="ln_Finnish" />
+                  <s:enumeration value="ln_Greek" />
+                  <s:enumeration value="ln_Portuguese" />
+                  <s:enumeration value="ln_Swedish" />
+                  <s:enumeration value="ln_English_Cy" />
+                  <s:enumeration value="ln_French" />
+                  <s:enumeration value="ln_Spanish" />
+                  <s:enumeration value="ln_Russian" />
+                  <s:enumeration value="ln_Spanish_La" />
+                  <s:enumeration value="ln_Czech_Cz" />
+                  <s:enumeration value="ln_Slovak_Sk" />
+                  <s:enumeration value="ln_Korean_Kr" />
+                  <s:enumeration value="ln_Portuguese_Br" />
+                  <s:enumeration value="ln_Japanese_Jp" />
+                  <s:enumeration value="ln_Turkish_Tr" />
+                  <s:enumeration value="ln_TrdtnlChinese_Hk" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseServer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logout">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="s1:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+    <wsdl:part name="request_header" element="s1:MsgHeader" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="s1:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LoginServiceSoap">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LoginServiceSoap" type="tns:LoginServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="LoginService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="LoginService/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+        <soap:header message="tns:LogoutSoapIn" part="request_header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LoginServiceSoap12" type="tns:LoginServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="LoginService/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="LoginService/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" parts="parameters" />
+        <soap:header message="tns:LogoutSoapIn" part="request_header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LoginService">
+    <wsdl:port name="LoginServiceSoap" binding="tns:LoginServiceSoap">
+      <soap:address location="http://10.1.1.65/B1WS/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LoginServiceSoap12" binding="tns:LoginServiceSoap12">
+      <soap12:address location="http://10.1.1.65/B1WS/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
