@@ -33,6 +33,7 @@ import org.tempuri.HelloWorldResponse
 import org.tempuri.IsAlive
 import org.tempuri.IsAliveResponse
 import org.tempuri.ObjectFactory
+import org.tempuri.GetDataTableResponse.GetDataTableResult
 
 class DemoController {
 
@@ -47,55 +48,48 @@ class DemoController {
     ShakespeareSoap shakeSpeareClient
     GetCustomNewsSoap getCustomNewsClient
     LoginServiceSoap loginServiceClient
-    org.tempuri.ServiceSoap serviceSoapClient
+    ServiceSoap serviceSoapClient
 
     def index = {
         render(view: "/index")
     }
 
     def serviceSoapTest = {
-        String soapServiceException, addBP1, connect1, isAlive1, helloWorld1, getDataTable1
+        String addBusinessPartner = "", helloWorld = ""
+        Boolean isConnected = false, isAlive = false, addBP = false
+        GetDataTableResult getDataTableResult = null
+        Exception soapServiceException = null
 
-        BusinessPartner bp = new BusinessPartner()
-        Address address = new Address()
-        Address billTo1 = new Address()
-        Address billTo2 = new Address()
-        Address billToPostal = new Address()
+        Address address = new Address(address1: "22575 Highway 6 South", address2: "Navasota, Texas", postalCode: "77868")
+        BusinessPartner businessPartner = new BusinessPartner(cardCode: "C00570",
+                                                              cardName: "Select Sires",
+                                                              groupCode: 1,
+                                                              taxCode: "99-9999999",
+                                                              priceListNum: 1,
+                                                              phone: "614-873-4683",
+                                                              mobilePhone: "614-246-1055",
+                                                              fax: "614-873-5751",
+                                                              terms: 7,
+                                                              billToAddress: address,
+                                                              email: "AThiergartner@selectsires.com")
 
         try {
-            address.setAddress1("910 Navidad")
-            address.setAddress2("Bryan, Texas")
-            address.setPostalCode("77801")
-            bp.setCardCode("C00570")
-            bp.setCardName("Select Sires")
-            bp.setGroupCode(1)
-            bp.setTaxCode("99-9999999")
-            bp.setPriceListNum(1)
-            billTo1.setAddress1("22575 Highway 6 South")
-            bp.setBillToAddress(billTo1)
-            billTo2.setAddress2("Navasota, Texas")
-            bp.setBillToAddress(billTo2)
-//            billToPostal.setPostalCode("77868")
-            bp.setEmail("AThiergartner@selectsires.com")
-            bp.setPhone("614-873-4683")
-            bp.setMobilePhone("614-246-1055")
-            bp.setFax("614-873-5751")
-            bp.setTerms(7)
-            connect1 = serviceSoapClient.connected()
-            isAlive1 = serviceSoapClient.isAlive()
-            helloWorld1 = serviceSoapClient.helloWorld()
-            getDataTable1 = serviceSoapClient.getDataTable("select sqrt(2)")
-            /*addBP1 = serviceSoapClient.addBP(bp)*/
+            isConnected = serviceSoapClient.connected()
+            isAlive = serviceSoapClient.isAlive()
+            helloWorld = serviceSoapClient.helloWorld()
+            getDataTableResult = serviceSoapClient.getDataTable("select sqrt(9)")
+            addBusinessPartner = serviceSoapClient.addBP(businessPartner)
         } catch (Exception e) {
-            soapServiceException = new Exception("GetDataTable invocation threw an error ") + e.getMessage()
+            println e
+            soapServiceException = new Exception("GetDataTable invocation threw an error ${e.getMessage()}")
         }
 
-        render(view: '/index', model: [connect1: connect1,
-                                        isAlive1: isAlive1,
-                                        helloWorld1: helloWorld1,
-                                        getDataTable1: getDataTable1,
-                                        /*addBP1: addBP1,*/
-                                        soapServiceException: soapServiceException])
+        render(view: '/index', model: [isConnected: isConnected,
+               isAlive: isAlive,
+               helloWorld: helloWorld,
+               getDataTableResult: getDataTableResult.any,
+               addBusinessPartner: addBusinessPartner.asBoolean(),
+               soapServiceException: soapServiceException?.message ?: ""])
     }
 
     def loginServiceDemo = {

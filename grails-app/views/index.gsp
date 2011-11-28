@@ -102,13 +102,13 @@
   <td width="50%">
     <fieldset>
     <legend>Service Results</legend>
-       <g:if test="${isAlive1 && connect1}">
+       <g:if test="${isAlive && isConnected}">
           <BR><BR>
-          <span style="font-weight: bold;">Is Alive:</span><span class="name">${isAlive1}</span><BR>
-          <span style="font-weight: bold;">Connected B1:</span> <span class="name">${connect1}</span><BR>
-          <span style="font-weight: bold;">Hello World:</span><span class="name">${helloWorld1}</span><BR>
-          <span style="font-weight: bold;">GetDataTable:</span><span class="name">${getDataTable1?.getProperties().values()}</span><BR>
-          %{--<span style="font-weight: bold;">Add BP1:</span><span class="name">${addBP1?.getProperties().values()}</span><BR>--}%
+          <span style="font-weight: bold;">Is Alive:</span><span class="name">${isAlive}</span><BR>
+          <span style="font-weight: bold;">Connected B1:</span> <span class="name">${isConnected}</span><BR>
+          <span style="font-weight: bold;">Hello World:</span><span class="name">${helloWorld}</span><BR>
+          <span style="font-weight: bold;">GetDataTableResult:</span><span class="name">${getDataTableResult}</span><BR>
+          <span style="font-weight: bold;">Add BP1:</span><span class="name">${addBusinessPartner}</span><BR>
           <span style="font-weight: bold;">Soap Service Exception</span><span class="name">${soapServiceException}</span><BR>
         </g:if>
        <g:if test="${stockQuote}">
