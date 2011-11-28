@@ -77,19 +77,26 @@ class DemoController {
             isConnected = serviceSoapClient.connected()
             isAlive = serviceSoapClient.isAlive()
             helloWorld = serviceSoapClient.helloWorld()
-            getDataTableResult = serviceSoapClient.getDataTable("select sqrt(9)")
-            addBusinessPartner = serviceSoapClient.addBP(businessPartner)
+            getDataTableResult = serviceSoapClient.getDataTable("select sqrt(2)")
+            addBP = serviceSoapClient.addBP(businessPartner)
         } catch (Exception e) {
             println e
-            soapServiceException = new Exception("GetDataTable invocation threw an error ${e.getMessage()}")
+            soapServiceException = new Exception("addBP invocation threw an error ${e.getMessage()}")
         }
 
         render(view: '/index', model: [isConnected: isConnected,
                isAlive: isAlive,
                helloWorld: helloWorld,
-               getDataTableResult: getDataTableResult.any,
-               addBusinessPartner: addBusinessPartner.asBoolean(),
+               getDataTableResult: getDataTableResult.any.firstChild?.firstChild?.firstChild?.firstChild.data,
+               addBP: addBP,
                soapServiceException: soapServiceException?.message ?: ""])
+    }
+
+    private printOut(elem) {
+        println elem
+        elem?.childNodes.each {
+            printOut it
+        }
     }
 
     def loginServiceDemo = {

@@ -108,7 +108,7 @@
           <span style="font-weight: bold;">Connected B1:</span> <span class="name">${isConnected}</span><BR>
           <span style="font-weight: bold;">Hello World:</span><span class="name">${helloWorld}</span><BR>
           <span style="font-weight: bold;">GetDataTableResult:</span><span class="name">${getDataTableResult}</span><BR>
-          <span style="font-weight: bold;">Add BP1:</span><span class="name">${addBusinessPartner}</span><BR>
+          <span style="font-weight: bold;">Add BP:</span><span class="name">${addBP}</span><BR>
           <span style="font-weight: bold;">Soap Service Exception</span><span class="name">${soapServiceException}</span><BR>
         </g:if>
        <g:if test="${stockQuote}">
