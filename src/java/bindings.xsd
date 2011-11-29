@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxws:bindings wsdlLocation="http://ts2.nbs-us.com/TestWS/Service.asmx?WSDL"
+<jaxws:bindings wsdlLocation="TestWS/TestWS.wsdl"
    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"

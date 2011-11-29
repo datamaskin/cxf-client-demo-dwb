@@ -106,7 +106,7 @@ log4j = {
 
     warn 'org.mortbay.log'
 
-    info 'com.grails.cxf.client'
+    info 'com.grails.cxf.client','org.apache.cxf.interceptor'
 }
 
 cxf {
