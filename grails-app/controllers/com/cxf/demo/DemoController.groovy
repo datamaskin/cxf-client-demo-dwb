@@ -9,33 +9,14 @@ import uk.co.demon.DigDNS
 import com.xmlme.ShakespeareSoap
 import com.xmlme.news.GetCustomNewsSoap
 import com.sexingtechnologies.b1ws.LoginServiceSoap
-import org.tempuri.HelloWorld
-import org.tempuri.HelloWorldResponse
-/*import com.sexingtechnologies.TestWS.GetDataTableResponse
-import com.sexingtechnologies.TestWS.GetDataTable
-import com.sexingtechnologies.TestWS.ServiceSoap
-import com.sexingtechnologies.TestWS.BusinessPartner
-import com.sexingtechnologies.TestWS.Address
-import com.sexingtechnologies.TestWS.Connected
-import com.sexingtechnologies.TestWS.IsAlive*/
 import org.tempuri.ServiceSoap
-import org.tempuri.Service
-import org.tempuri.AddBP
-import org.tempuri.AddBPResponse
 import org.tempuri.Address
 import org.tempuri.BusinessPartner
-import org.tempuri.Connected
-import org.tempuri.ConnectedResponse
-import org.tempuri.GetDataTable
-import org.tempuri.GetDataTableResponse
-import org.tempuri.HelloWorld
-import org.tempuri.HelloWorldResponse
-import org.tempuri.IsAlive
-import org.tempuri.IsAliveResponse
-import org.tempuri.ObjectFactory
 import org.tempuri.GetDataTableResponse.GetDataTableResult
 import javax.xml.datatype.XMLGregorianCalendar
 import javax.xml.datatype.DatatypeFactory
+
+
 
 class DemoController {
 
@@ -272,16 +253,80 @@ class DemoController {
             soapServiceException = new Exception("addBP invocation threw an error ${e.getMessage()}")
         }
 
+        printOut(getDataTableResult.getAnies())
+
+        String xml = getDataTableResult.getAnies().toListString()
+        xml = xml.trim().replaceFirst("^([^<]+)<", "<") // a lot of cleanup to make the SAX parser happy
+        xml = xml.trim().replaceFirst(">([^>]+)\$", ">")
+        xml = xml.trim().replaceAll("\\r|\\n", "")
+        String[] xmlTmp = xml.trim().split(",")
+        xml = xmlTmp[1]
+        xml = xml.trim().stripIndent()
+
+        println "xml = ${xml}"
+        def bp = new XmlParser().parseText(xml)
+        def bpSlurp = new XmlSlurper().parseText(xml)
+        println "bp.name = ${bp.name()}"
+        println "bpSlurp.name ${bpSlurp.name()}"
+
+        bpSlurp.name().eachLine {
+            it.eachLine {
+                println "it = ${it}"
+            }
+        }
+
+        bpSlurp.find { found ->
+            if(bpSlurp.name().equalsIgnoreCase("diffgram"))
+                println "found diffgram = ${found}"
+        }
+
+        println "depthFirst = ${bp.depthFirst()}"
+        println "breadthFirst = ${bp.breadthFirst()}"
+        def allNodes = bp.depthFirst().collect { it }
+        println "allNodes.size = ${allNodes.size()}"
+        println "bp.size = ${bp.children().size()}"
+        def bpSublist = bp.children().subList(0,1)
+        println "bpSublist.size = ${bpSublist.size()}"
+        println "bpSublist = ${bpSublist}"
+        def slurpNodes = bpSlurp.breadthFirst().collect{ it }
+        println "slurpNodes = " + slurpNodes
+        println "slurpNodes.size = ${slurpNodes.size()}"
+        println "slurpNodes.subList = ${slurpNodes.subList(3,4)}"
+        println "slurpNodes.subList = ${slurpNodes.subList(4,5)}"
+        println "slurpNodes.subList = ${slurpNodes.subList(5,6)}"
+
+        bp.children().each {
+            println "bp.children.each.name = ${it.name()}"
+        }
+
+        bpSlurp.children().each {
+            if(bpSlurp.children().name().equalsIgnoreCase("DocumentElement"))
+                println "bpSlurp.children.each.name = ${it.name()}"
+        }
+
+        bpSlurp.children().each {
+            println "bpSlurp.children.each.attribute = ${it.attributes()}"
+        }
+
+        def allSlurp = bpSlurp.breadthFirst()
+
+        while (allSlurp.hasNext()) {
+            println "allSlurp.next = ${allSlurp.next()}"
+        }
+
+        println "slurpName = ${bpSlurp.name()}"
+
+        println "slurpProps = ${bpSlurp.breadthFirst().properties}"
+
         render(view: '/index', model: [isConnected: isConnected,
                isAlive: isAlive,
                helloWorld: helloWorld,
-//               getDataTableResult: getDataTableResult.any.firstChild?.firstChild?.firstChild?.firstChild.data,
-               getDataTableResult: getDataTableResult.getAnies().firstChild?.firstChild?.firstChild?.firstChild.attributes,
+               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
 //               addBP: addBP,
                soapServiceException: soapServiceException?.message ?: ""])
     }
 
-    private printOut(elem) {
+    private void printOut(elem) {
         println elem
         elem?.childNodes.each {
             printOut it
