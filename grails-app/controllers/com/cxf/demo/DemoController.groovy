@@ -1,22 +1,19 @@
 package com.cxf.demo
 
+import com.sexingtechnologies.b1ws.LoginServiceSoap
+import com.xmlme.ShakespeareSoap
+import com.xmlme.news.GetCustomNewsSoap
 import cxf.client.demo.complex.ComplexServicePortType
 import cxf.client.demo.secure.SecureServicePortType
 import cxf.client.demo.simple.SimpleServicePortType
-import net.webservicex.StockQuoteSoap
+import javax.xml.datatype.DatatypeFactory
+import javax.xml.datatype.XMLGregorianCalendar
 import net.webbservicex.globalweather.GlobalWeatherSoap
-import uk.co.demon.DigDNS
-import com.xmlme.ShakespeareSoap
-import com.xmlme.news.GetCustomNewsSoap
-import com.sexingtechnologies.b1ws.LoginServiceSoap
-import org.tempuri.ServiceSoap
+import net.webservicex.StockQuoteSoap
 import org.tempuri.Address
 import org.tempuri.BusinessPartner
 import org.tempuri.GetDataTableResponse.GetDataTableResult
-import javax.xml.datatype.XMLGregorianCalendar
-import javax.xml.datatype.DatatypeFactory
-
-
+import uk.co.demon.DigDNS
 
 class DemoController {
 
@@ -31,7 +28,8 @@ class DemoController {
     ShakespeareSoap shakeSpeareClient
     GetCustomNewsSoap getCustomNewsClient
     LoginServiceSoap loginServiceClient
-    ServiceSoap serviceSoapClient
+    org.tempuri.ServiceSoap serviceSoapClient
+    net.uhurucloud.ServiceSoap helloSAPClient
 
     GregorianCalendar calendar = new GregorianCalendar()
     XMLGregorianCalendar xmlCreateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2007-04-09T00:00:00-06:00")
@@ -243,17 +241,17 @@ class DemoController {
                                                               )
 
         try {
-            isConnected = serviceSoapClient.connected()
+//            isConnected = serviceSoapClient.connected()
             isAlive = serviceSoapClient.isAlive()
             helloWorld = serviceSoapClient.helloWorld()
-            getDataTableResult = serviceSoapClient.getDataTable("select cardName, groupCode, balance from OCRD where cardCode='C00570'")
+//            getDataTableResult = serviceSoapClient.getDataTable("select cardName, groupCode, balance from OCRD where cardCode='C00570'")
 //            addBP = serviceSoapClient.addBP(businessPartner)
         } catch (Exception e) {
             println e
             soapServiceException = new Exception("addBP invocation threw an error ${e.getMessage()}")
         }
 
-        printOut(getDataTableResult.getAnies())
+        /*printOut(getDataTableResult.getAnies())
 
         String xml = getDataTableResult.getAnies().toListString()
         xml = xml.trim().replaceFirst("^([^<]+)<", "<") // a lot of cleanup to make the SAX parser happy
@@ -316,12 +314,12 @@ class DemoController {
 
         println "slurpName = ${bpSlurp.name()}"
 
-        println "slurpProps = ${bpSlurp.breadthFirst().properties}"
+        println "slurpProps = ${bpSlurp.breadthFirst().properties}"*/
 
         render(view: '/index', model: [isConnected: isConnected,
                isAlive: isAlive,
                helloWorld: helloWorld,
-               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
+//               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
 //               addBP: addBP,
                soapServiceException: soapServiceException?.message ?: ""])
     }
@@ -333,10 +331,23 @@ class DemoController {
         }
     }
 
+    def helloSAPDemo = {
+        String helloSAPService
+        try {
+            helloSAPService = helloSAPClient.helloWorld()
+            log.debug(helloSAPService)
+        } catch (Exception e) {
+            helloSAPService = e.message
+        }
+
+        render(view: '/index', model: [helloSAPService: helloSAPService])
+    }
+
     def loginServiceDemo = {
         String loginService
         try {
-            loginService = loginServiceClient.login("10.1.1.65","APP-DEV","dst_MSSQL","sa","","dbrown","","In_English","10.1.1.65:30000")
+//            loginService = loginServiceClient.login("ST-SAP\\STSAP","*Inguran_AppDev_Sandbox*","dst_MSSQL2008","appdev","redpanda","appdev","redpanda","In_English","10.1.1.65:30000")
+            loginService = loginServiceClient.login("10.1.1.65","*Inguran_AppDev_Sandbox*","dst_MSSQL2008","appdev","redpanda","appdev","redpanda","In_English","10.1.1.65:30000")
         } catch (Exception e) {
             loginService = e.message
         }
@@ -347,7 +358,8 @@ class DemoController {
     def stockQuoteDemo = {
         String stockQuote
         try {
-            stockQuote = stockQuoteClient.getQuote("AAPL")
+//            stockQuote = stockQuoteClient.getQuote("AAPL")
+            stockQuote = stockQuoteClient.getQuote("SAP")
         } catch(Exception e){
             stockQuote = e.message
         }

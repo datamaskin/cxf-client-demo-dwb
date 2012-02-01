@@ -1,3 +1,4 @@
+<%@ page import="net.uhurucloud.HelloWorld; net.uhurucloud.HelloWorldResponse" %>
 <html>
 <head>
   <title>CXF CLIENT DEMO</title>
@@ -19,6 +20,13 @@
   <g:form action="serviceSoapTest" controller="demo" name="serviceSoapTest">
     <fieldset>
     <legend>Invoke SAP Services</legend>
+    <div style="width:100%"><g:submitButton name="submitButton" value="Invoke"/></div>
+    </fieldset>
+  </g:form>
+  <br><br>
+  <g:form action="helloSAPDemo" controller="demo" name="helloSAPDemo">
+    <fieldset>
+    <legend>Invoke Hello SAP</legend>
     <div style="width:100%"><g:submitButton name="submitButton" value="Invoke"/></div>
     </fieldset>
   </g:form>
@@ -102,7 +110,8 @@
   <td width="50%">
     <fieldset>
     <legend>Service Results</legend>
-       <g:if test="${isAlive && isConnected}">
+       %{--<g:if test="${isAlive && isConnected}">--}%
+       <g:if test="${!isAlive}">
           <BR><BR>
           <span style="font-weight: bold;">Is Alive:</span><span class="name">${isAlive}</span><BR>
           <span style="font-weight: bold;">Connected B1:</span> <span class="name">${isConnected}</span><BR>
@@ -111,6 +120,10 @@
           <span style="font-weight: bold;">Add BP:</span><span class="name">${addBP}</span><BR>
           <span style="font-weight: bold;">Soap Service Exception</span><span class="name">${soapServiceException}</span><BR>
         </g:if>
+       <g:if test="${HelloWorld}">
+           <BR><BR>
+           <span class="name>"${HelloWorldResult?.encodeAsHTML()}</span><BR>
+       </g:if>
        <g:if test="${stockQuote}">
           <BR><BR>
           <span class="name">${stockQuote?.encodeAsHTML()}</span><BR>
