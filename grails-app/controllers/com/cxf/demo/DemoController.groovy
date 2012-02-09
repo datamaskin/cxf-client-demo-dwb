@@ -5,19 +5,24 @@ import com.xmlme.ShakespeareSoap
 import com.xmlme.news.GetCustomNewsSoap
 import cxf.client.demo.complex.ComplexServicePortType
 import cxf.client.demo.secure.SecureServicePortType
-import cxf.client.demo.simple.SimpleServicePortType
 import javax.xml.datatype.DatatypeFactory
 import javax.xml.datatype.XMLGregorianCalendar
 import net.webbservicex.globalweather.GlobalWeatherSoap
 import net.webservicex.StockQuoteSoap
+// These imports are available after running wsdl2java
 import org.tempuri.Address
 import org.tempuri.BusinessPartner
+import org.tempuri.Document
 import org.tempuri.GetDataTableResponse.GetDataTableResult
 import uk.co.demon.DigDNS
+import org.tempuri.ArrayOfDocLine
+import org.tempuri.DocLine
+import org.tempuri.ArrayOfUDF
 
-class DemoController {
+class DemoController { // all of the service client in this controller should work well without mods except for the SAP service.
 
-    SimpleServicePortType simpleServiceClient
+//    SimpleServicePortType simpleServiceClient
+    // create instances of your target ws client
     ComplexServicePortType complexServiceClient
     SecureServicePortType secureServiceClient
     SecureServicePortType insecureServiceClient
@@ -32,234 +37,95 @@ class DemoController {
     net.uhurucloud.ServiceSoap helloSAPClient
 
     GregorianCalendar calendar = new GregorianCalendar()
-    XMLGregorianCalendar xmlCreateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2007-04-09T00:00:00-06:00")
-    XMLGregorianCalendar xmlUpdateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2009-12-31T00:00:00-07:00")
-
+    XMLGregorianCalendar xmlCreateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-08")
+    XMLGregorianCalendar xmlUpdateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-08")
 
     def index = {
         render(view: "/index")
     }
 
-    def serviceSoapTest = {
-        String addBusinessPartner = "", helloWorld = ""
+    def serviceSoapTest = { // this client runs all of the SAP operations: Add BusinessPartner (customer) and Add Invoice
+        String addBusinessPartner = "", helloWorld = "", addInvoice = "", aCardCode = "", strTmp = ""
         Boolean isConnected = false, isAlive = false, addBP = false
         GetDataTableResult getDataTableResult = null
         Exception soapServiceException = null
 
-        Address address = new Address(address1: "22575 Highway 6 South", address2: "Navasota, Texas", postalCode: "77868")
-        BusinessPartner businessPartner = new BusinessPartner(cardCode: "C00570",
-                                                              cardName: "Select Sires",
-//                                                              cardType: "C",
-                                                              groupCode: 107,
-                                                              cmpPrivate: "C",
-                                                              address: "300 Billings Drive",
-                                                              zipCode: "19083",
-                                                              mailAddres: "300 Billings Drive",
-                                                              mailZipCod: "19083",
-                                                              phone1: "(610) 565-9000",
-                                                              fax: "614-873-5751",
-                                                              cntctPrsn: "Norm Thompson",
-                                                              balance: 91130.850000,
-                                                              checksBal: -6057.900000,
-                                                              dNotesBal: 1168.650000,
-                                                              ordersBal: 26241.360000,
-                                                              groupNum: 1,
-                                                              creditLine: 0.000000,
-                                                              debtLine: 0.000000,
-                                                              discount: 0.000000,
-                                                              vatStatus: "Y",
-                                                              licTradNum: "US25-987634",
-                                                              ddctStatus: "N",
-                                                              ddctPrcnt: 0.000000,
-                                                              listNum: 0.000000,
-                                                              dNoteBalFC: 0.000000,
-                                                              orderBalFC: 0.000000,
-                                                              dNoteBalSy: 1168.650000,
-                                                              orderBalSy: 26241.360000,
-                                                              transfered: "N",
-                                                              balTrnsfrd: "N",
-                                                              intrstRate: 0.000000,
-                                                              commission: 0.000000,
-                                                              commGrCode: 0,
-                                                              slpCode: 1,
-                                                              prevYearAc: "N",
-                                                              currency: "\$",
-                                                              balanceSys: 91130.850000,
-                                                              balanceFC: 0.000000,
-                                                              city: "Havertown",
-                                                              county: "Delaware",
-                                                              country: "US",
-                                                              mailCity: "Havertown",
-                                                              mailCounty: "Delaware",
-                                                              mailCountr: "US",
-                                                              eMail: "info@norm.com",
-                                                              dflAccount: "230-6789-456464",
-                                                              dflBranch: "101",
-                                                              bankCode: "BOA",
-                                                              fatherType: "P",
-                                                              qryGroup1: "N",
-                                                              qryGroup2: "N",
-                                                              qryGroup3: "N",
-                                                              qryGroup4: "N",
-                                                              qryGroup5: "N",
-                                                              qryGroup6: "N",
-                                                              qryGroup7: "N",
-                                                              qryGroup8: "N",
-                                                              qryGroup9: "N",
-                                                              qryGroup10: "N",
-                                                              qryGroup11: "N",
-                                                              qryGroup12: "N",
-                                                              qryGroup13: "N",
-                                                              qryGroup14: "N",
-                                                              qryGroup15: "N",
-                                                              qryGroup16: "N",
-                                                              qryGroup17: "N",
-                                                              qryGroup18: "N",
-                                                              qryGroup19: "N",
-                                                              qryGroup20: "N",
-                                                              qryGroup21: "N",
-                                                              qryGroup22: "N",
-                                                              qryGroup23: "N",
-                                                              qryGroup24: "N",
-                                                              qryGroup25: "N",
-                                                              qryGroup26: "N",
-                                                              qryGroup27: "N",
-                                                              qryGroup28: "N",
-                                                              qryGroup29: "N",
-                                                              qryGroup30: "N",
-                                                              qryGroup31: "N",
-                                                              qryGroup32: "N",
-                                                              qryGroup33: "N",
-                                                              qryGroup34: "N",
-                                                              qryGroup35: "N",
-                                                              qryGroup36: "N",
-                                                              qryGroup37: "N",
-                                                              qryGroup38: "N",
-                                                              qryGroup39: "N",
-                                                              qryGroup40: "N",
-                                                              qryGroup41: "N",
-                                                              qryGroup42: "N",
-                                                              qryGroup43: "N",
-                                                              qryGroup44: "N",
-                                                              qryGroup45: "N",
-                                                              qryGroup46: "N",
-                                                              qryGroup47: "N",
-                                                              qryGroup48: "N",
-                                                              qryGroup49: "N",
-                                                              qryGroup50: "N",
-                                                              qryGroup51: "N",
-                                                              qryGroup52: "N",
-                                                              qryGroup53: "N",
-                                                              qryGroup54: "N",
-                                                              qryGroup55: "N",
-                                                              qryGroup56: "N",
-                                                              qryGroup57: "N",
-                                                              qryGroup58: "N",
-                                                              qryGroup59: "N",
-                                                              qryGroup60: "N",
-                                                              qryGroup61: "N",
-                                                              qryGroup62: "N",
-                                                              qryGroup63: "N",
-                                                              qryGroup64: "N",
-                                                              createDate: xmlCreateDate,
-                                                              updateDate: xmlUpdateDate,
-                                                              dscntObjct: -1,
-                                                              dscntRel: "L",
-                                                              spgCounter: 0,
-                                                              SPPCounter: 0,
-                                                              minIntrst: 0.000000,
-                                                              dataSource: 0,
-                                                              oprCount: 6,
-                                                              priority: 1,
-                                                              creditCard: 1,
-                                                              crCardNum: "39vQdtk98qMI9yBd/jHngWUE7ZbANtCD5FczibTq0IeHdSAjT1uOBzHyLFEtx4cV",
-                                                              userSign: 1,
-                                                              locMth: 1,
-                                                              validFor: "N",
-                                                              frozenFor:  "N",
-                                                              sEmployed: "N",
-                                                              ddgKey: -1,
-                                                              ddtKey: -1,
-                                                              chainStore: "N",
-                                                              discInRet: "N",
-                                                              state1: "PA",
-                                                              state2: "PA",
-                                                              logInstanc: 0,
-                                                              objType: 2,
-                                                              shipType: 1,
-                                                              debPayAcct: "_SYS00000000010",
-                                                              shipToDef: "Ship to",
-                                                              block: "Suite 500",
-                                                              mailBlock: "Suite 500",
-                                                              deleted: "N",
-                                                              docEntry: 1,
-                                                              pymCode: "Incoming BT 02",
-                                                              backOrder: "Y",
-                                                              partDelivr: "Y",
-                                                              dunnLevel: 0,
-                                                              blockDunn: "N",
-                                                              bankCountr: "US",
-                                                              collecAuth: "N",
-                                                              singlePaym: "N",
-                                                              paymBlock: "N",
-                                                              houseBank: "BOA",
-                                                              pyBlckDesc: -1,
-                                                              housBnkCry: "US",
-                                                              housBnkAct: "100-3443-7867",
-                                                              housBnkBrn: "Main",
-                                                              sysMatchNo: -11,
-                                                              deferrTax: "N",
-                                                              maxAmount: 0.000000,
-                                                              accCritria: "N",
-                                                              equ: "N",
-                                                              hldCode: "2007 Holidays",
-                                                              typWTReprt: "C",
-                                                              isDomestic: "Y",
-                                                              isResident: "Y",
-                                                              autoCalBCG: "N",
-                                                              dunTerm: "Standard",
-                                                              billToDef: "Bill To",
-                                                              intrntSite: "www.norm.com",
-                                                              langCode: 3,
-                                                              housActKey: 2,
-                                                              useShpdGd: "Y",
-                                                              insurOp347: "N",
-                                                              taxRndRule: "D",
-                                                              threshOver: "N",
-                                                              surOver: "N",
-                                                              opCode347: "B",
-                                                              residenNum: 1,
-                                                              userSign2: 1,
-                                                              affiliate: "N",
-                                                              mivzExpSts: "B",
-                                                              hierchDdct: "N",
-                                                              certWHT: "N",
-                                                              certBKeep: "N",
-                                                              whShaamGrp: 1,
-                                                              datevFirst: "Y",
-                                                              taxIdIdent: 3
-                                                              )
+        Address address = new Address(addressName: "Joe Berry (SAP WS Test)", address1: "22575 Highway 6 South", address2: "Navasota, Texas", postalCode: "77868", countryCode: "USA")
 
-        try {
-//            isConnected = serviceSoapClient.connected()
+        // ArrayOfDocLine adds the line items to the Line Item list in the Invoice Document (but we don't know how yet).
+        ArrayOfDocLine arrayOfDocLine = new ArrayOfDocLine()
+        arrayOfDocLine.docLines = new ArrayList<DocLine>()
+        // the arrayOfDocLine is commented out because the line items must be correctly valued.
+        /*arrayOfDocLine.docLines.add("one")
+        arrayOfDocLine.docLines.add("two")
+        arrayOfDocLine.docLines.add("three")*/
+
+        ArrayOfUDF arrayOfUDF = new ArrayOfUDF()
+        arrayOfUDF.udves = new ArrayList()
+        /*arrayOfUDF.udves.add("eins")
+        arrayOfUDF.udves.add("zwei")
+        arrayOfUDF.udves.add("drei")*/
+
+        Document document = new Document(
+                billToAddress: address,
+                cardCode: "C00070",
+                comments: "WS Test",
+                customerRef: "45748-BD",
+                docDueDate: xmlUpdateDate,
+                docPostingDate: xmlCreateDate,
+                lines: arrayOfDocLine,
+                nbsGUID: "aguid", // this value is not correct
+                priceList: 1,
+                shipToAddress: address,
+                udFs: arrayOfUDF
+        )
+
+        BusinessPartner businessPartner
+
+        try { // all of the soapServices are executed here
+            isConnected = serviceSoapClient.connected()
             isAlive = serviceSoapClient.isAlive()
             helloWorld = serviceSoapClient.helloWorld()
-//            getDataTableResult = serviceSoapClient.getDataTable("select cardName, groupCode, balance from OCRD where cardCode='C00570'")
-//            addBP = serviceSoapClient.addBP(businessPartner)
+//            getDataTableResult = serviceSoapClient.getDataTable("select cardName, groupCode from OCRD where cardCode='C00106'")
+            getDataTableResult = serviceSoapClient.getDataTable("SELECT 'C' + replace(str(MAX(convert(decimal,substring(CardCode,2,5)))+1,5,0),' ','0') FROM OCRD WHERE cardcode>='C00000' and cardcode<'C99999' and cardtype='C'")
+            aCardCode = new String("${getDataTableResult.getAnies().get(1)}")
+            log.debug("aCardCode = " + aCardCode)
+            println "aCardCode = " + aCardCode
+            businessPartner = new BusinessPartner( // do not run this code without changing the cardCode to the next new value
+                cardCode: "C01065",
+                cardName: "Casy Choate",
+                groupCode: 100,
+                priceListNum: 1,
+                phone: "(610) 565-9000",
+                email: "cchoate@sexingtechnologies.com",
+                taxCode: "EX",
+                terms: 1,
+                secondPhone: "(111) 111-1111",
+                mobilePhone: "(999) 999-9999",
+                fax: "(222) 222-2222",
+                shipToAddress: address,
+                billToAddress: address
+        )
+//            getDataTableResult = serviceSoapClient.getDataTable("select * from OCRD where cardType = 'C' AND cardCode='C00070'")
+//            getDataTableResult = serviceSoapClient.getDataTable("SELECT name FROM sysobjects WHERE id IN ( SELECT id FROM syscolumns WHERE name = 'PRICELISTNUM')")
+            addBP = serviceSoapClient.addBP(businessPartner)
+//            serviceSoapClient.addInvoice(document)
         } catch (Exception e) {
             println e
-            soapServiceException = new Exception("addBP invocation threw an error ${e.getMessage()}")
+            soapServiceException = new Exception(" addBP invocation threw an error ${e.getMessage()}")
         }
 
-        /*printOut(getDataTableResult.getAnies())
+        printOut(getDataTableResult.getAnies())
 
-        String xml = getDataTableResult.getAnies().toListString()
+        // The commented out code below was used to clean up the old SOAP response from the old NBS test service for AddBP (http://ts2.nbs-us.com/TestWS/Service.asmx)
+        /*String xml = strTmp
         xml = xml.trim().replaceFirst("^([^<]+)<", "<") // a lot of cleanup to make the SAX parser happy
         xml = xml.trim().replaceFirst(">([^>]+)\$", ">")
         xml = xml.trim().replaceAll("\\r|\\n", "")
         String[] xmlTmp = xml.trim().split(",")
         xml = xmlTmp[1]
         xml = xml.trim().stripIndent()
+
 
         println "xml = ${xml}"
         def bp = new XmlParser().parseText(xml)
@@ -320,11 +186,26 @@ class DemoController {
                isAlive: isAlive,
                helloWorld: helloWorld,
 //               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
-//               addBP: addBP,
+               getDataTableResult: aCardCode,
+               addBP: addBP,
+               addIvn: serviceSoapClient.addInvoice(document), // currently this is not working because of unknown required data type.
                soapServiceException: soapServiceException?.message ?: ""])
     }
 
+    def getCardCode (cardNo) {
+        def re = /([0-9]+)/
+        def matcher = (cardNo =~ re)
+        return matcher[0][1]
+    }
+
     private void printOut(elem) {
+        println elem
+        elem?.childNodes.each {
+            printOut it
+        }
+    }
+
+    private String printOutStr(elem) {
         println elem
         elem?.childNodes.each {
             printOut it
@@ -347,7 +228,7 @@ class DemoController {
         String loginService
         try {
 //            loginService = loginServiceClient.login("ST-SAP\\STSAP","*Inguran_AppDev_Sandbox*","dst_MSSQL2008","appdev","redpanda","appdev","redpanda","In_English","10.1.1.65:30000")
-            loginService = loginServiceClient.login("10.1.1.65","*Inguran_AppDev_Sandbox*","dst_MSSQL2008","appdev","redpanda","appdev","redpanda","In_English","10.1.1.65:30000")
+            loginService = loginServiceClient.login("10.1.0.252","Inguran_AppDev_Sandbox","dst_MSSQL","appdev","redpanda","appdev","redpanda","In_English","10.1.1.253:30000")
         } catch (Exception e) {
             loginService = e.message
         }

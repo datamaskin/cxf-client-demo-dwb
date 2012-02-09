@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;any processContents='lax' namespace='http://www.w3.org/2001/XMLSchema' maxOccurs="unbounded" minOccurs="0"/>
- *                   &lt;any processContents='lax' namespace='urn:schemas-microsoft-com:xml-diffgram-v1' minOccurs="0"/>
+ *                   &lt;any processContents='lax' namespace='urn:schemas-microsoft-com:xml-diffgram-v1'/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -88,7 +88,7 @@ public class GetDataTableResponse {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;any processContents='lax' namespace='http://www.w3.org/2001/XMLSchema' maxOccurs="unbounded" minOccurs="0"/>
-     *         &lt;any processContents='lax' namespace='urn:schemas-microsoft-com:xml-diffgram-v1' minOccurs="0"/>
+     *         &lt;any processContents='lax' namespace='urn:schemas-microsoft-com:xml-diffgram-v1'/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>

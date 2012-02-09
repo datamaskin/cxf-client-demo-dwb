@@ -110,15 +110,15 @@
   <td width="50%">
     <fieldset>
     <legend>Service Results</legend>
-       %{--<g:if test="${isAlive && isConnected}">--}%
-       <g:if test="${!isAlive}">
+       <g:if test="${isAlive && isConnected}">
           <BR><BR>
-          <span style="font-weight: bold;">Is Alive:</span><span class="name">${isAlive}</span><BR>
-          <span style="font-weight: bold;">Connected B1:</span> <span class="name">${isConnected}</span><BR>
-          <span style="font-weight: bold;">Hello World:</span><span class="name">${helloWorld}</span><BR>
-          <span style="font-weight: bold;">GetDataTableResult:</span><span class="name">${getDataTableResult}</span><BR>
-          <span style="font-weight: bold;">Add BP:</span><span class="name">${addBP}</span><BR>
-          <span style="font-weight: bold;">Soap Service Exception</span><span class="name">${soapServiceException}</span><BR>
+          <span style="font-weight: bold;">Is Alive:&nbsp;</span><span class="name">${isAlive}</span><BR>
+          <span style="font-weight: bold;">Connected B1:&nbsp;</span> <span class="name">${isConnected}</span><BR>
+          <span style="font-weight: bold;">Hello World:&nbsp;</span><span class="name">${helloWorld}</span><BR>
+          <span style="font-weight: bold;">GetDataTableResult:&nbsp;</span><span class="name">${getDataTableResult}</span><BR>
+          <span style="font-weight: bold;">Add BP:&nbsp;</span><span class="name">${addBP}</span><BR>
+          <span style="font-weight: bold;">Add Invoice:&nbsp;</span><span class="name">${addInv}</span><BR>
+          <span style="font-weight: bold;">Soap Service Exception:&nbsp;</span><span class="name">${soapServiceException}</span><BR>
         </g:if>
        <g:if test="${HelloWorld}">
            <BR><BR>

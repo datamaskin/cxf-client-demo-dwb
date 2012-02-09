@@ -201,10 +201,12 @@ cxf {
         // SAP Alive
         serviceSoapClient {
 //            wsdl = "http://ts2.nbs-us.com/TestWS/Service.asmx?WSDL"
-            wsdl = "http://10.1.1.65/SexingTechWSsetup/Service.asmx?WSDL"
+//            wsdl = "http://10.1.1.65/SexingTechWSsetup/Service.asmx?WSDL"
+            wsdl = "http://wstest/SexingTechWSsetup/Service.asmx?WSDL"
             clientInterface = org.tempuri.ServiceSoap
 //            serviceEndpointAddress = "http://ts2.nbs-us.com/TestWS/Service.asmx"
-            serviceEndpointAddress = "http://10.1.1.65/SexingTechWSsetup/Service.asmx"
+//            serviceEndpointAddress = "http://10.1.1.65/SexingTechWSsetup/Service.asmx"
+            serviceEndpointAddress = "http://wstest/SexingTechWSsetup/Service.asmx"
         }
 
         // Hello SAP

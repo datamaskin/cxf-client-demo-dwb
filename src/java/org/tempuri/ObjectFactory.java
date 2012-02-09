@@ -38,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDataTableResponse.GetDataTableResult }
+     * Create an instance of {@link HelloWorldResponse }
      * 
      */
-    public GetDataTableResponse.GetDataTableResult createGetDataTableResponseGetDataTableResult() {
-        return new GetDataTableResponse.GetDataTableResult();
+    public HelloWorldResponse createHelloWorldResponse() {
+        return new HelloWorldResponse();
     }
 
     /**
@@ -54,11 +54,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HelloWorldResponse }
+     * Create an instance of {@link AddUDFs }
      * 
      */
-    public HelloWorldResponse createHelloWorldResponse() {
-        return new HelloWorldResponse();
+    public AddUDFs createAddUDFs() {
+        return new AddUDFs();
+    }
+
+    /**
+     * Create an instance of {@link GetDataTableResponse.GetDataTableResult }
+     * 
+     */
+    public GetDataTableResponse.GetDataTableResult createGetDataTableResponseGetDataTableResult() {
+        return new GetDataTableResponse.GetDataTableResult();
+    }
+
+    /**
+     * Create an instance of {@link AddUDFsResponse }
+     * 
+     */
+    public AddUDFsResponse createAddUDFsResponse() {
+        return new AddUDFsResponse();
     }
 
     /**
@@ -67,6 +83,62 @@ public class ObjectFactory {
      */
     public AddBPResponse createAddBPResponse() {
         return new AddBPResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddInvoiceResponse }
+     * 
+     */
+    public AddInvoiceResponse createAddInvoiceResponse() {
+        return new AddInvoiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddInvoice }
+     * 
+     */
+    public AddInvoice createAddInvoice() {
+        return new AddInvoice();
+    }
+
+    /**
+     * Create an instance of {@link Document }
+     * 
+     */
+    public Document createDocument() {
+        return new Document();
+    }
+
+    /**
+     * Create an instance of {@link IsAlive }
+     * 
+     */
+    public IsAlive createIsAlive() {
+        return new IsAlive();
+    }
+
+    /**
+     * Create an instance of {@link HelloWorld }
+     * 
+     */
+    public HelloWorld createHelloWorld() {
+        return new HelloWorld();
+    }
+
+    /**
+     * Create an instance of {@link IsAliveResponse }
+     * 
+     */
+    public IsAliveResponse createIsAliveResponse() {
+        return new IsAliveResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetDataTable }
+     * 
+     */
+    public GetDataTable createGetDataTable() {
+        return new GetDataTable();
     }
 
     /**
@@ -86,22 +158,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDataTable }
-     * 
-     */
-    public GetDataTable createGetDataTable() {
-        return new GetDataTable();
-    }
-
-    /**
-     * Create an instance of {@link IsAlive }
-     * 
-     */
-    public IsAlive createIsAlive() {
-        return new IsAlive();
-    }
-
-    /**
      * Create an instance of {@link ConnectedResponse }
      * 
      */
@@ -110,19 +166,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IsAliveResponse }
+     * Create an instance of {@link UDF }
      * 
      */
-    public IsAliveResponse createIsAliveResponse() {
-        return new IsAliveResponse();
+    public UDF createUDF() {
+        return new UDF();
     }
 
     /**
-     * Create an instance of {@link HelloWorld }
+     * Create an instance of {@link ArrayOfDocLine }
      * 
      */
-    public HelloWorld createHelloWorld() {
-        return new HelloWorld();
+    public ArrayOfDocLine createArrayOfDocLine() {
+        return new ArrayOfDocLine();
     }
 
     /**
@@ -131,6 +187,22 @@ public class ObjectFactory {
      */
     public Address createAddress() {
         return new Address();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfUDF }
+     * 
+     */
+    public ArrayOfUDF createArrayOfUDF() {
+        return new ArrayOfUDF();
+    }
+
+    /**
+     * Create an instance of {@link DocLine }
+     * 
+     */
+    public DocLine createDocLine() {
+        return new DocLine();
     }
 
 }

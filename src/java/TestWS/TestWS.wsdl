@@ -1,52 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
-                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/"
-                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-                  xmlns:jaxb="http://cxf.apache.org/transports/jms/context" targetNamespace="http://tempuri.org/"
-                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="HelloWorld">
-        <s:complexType />
+        <s:complexType/>
       </s:element>
       <s:element name="HelloWorldResponse">
         <s:complexType>
           <s:sequence>
-
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string"/>
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="Connected">
-        <s:complexType />
+        <s:complexType/>
       </s:element>
       <s:element name="ConnectedResponse">
         <s:complexType>
-
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ConnectedResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConnectedResult" type="s:boolean"/>
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="IsAlive">
-        <s:complexType />
+        <s:complexType/>
       </s:element>
       <s:element name="IsAliveResponse">
-
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="IsAliveResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsAliveResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUDFs">
+        <s:complexType/>
+      </s:element>
+      <s:element name="AddUDFsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddUDFsResult" type="s:boolean"/>
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="GetDataTable">
         <s:complexType>
           <s:sequence>
-
-            <s:element minOccurs="0" maxOccurs="1" name="SQL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SQL" type="s:string"/>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -55,826 +53,327 @@
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDataTableResult">
               <s:complexType>
-
                 <s:sequence>
-                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
-                  <s:any minOccurs="0" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
                 </s:sequence>
               </s:complexType>
             </s:element>
           </s:sequence>
         </s:complexType>
       </s:element>
-
       <s:element name="AddBP">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BP" type="tns:BusinessPartner" />
+            <s:element minOccurs="0" maxOccurs="1" name="BP" type="tns:BusinessPartner"/>
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="BusinessPartner">
         <s:sequence>
-
-          <s:element name="CardCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CardName" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CardType" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="GroupCode" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="CmpPrivate" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Address" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ZipCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailAddres" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailZipCod" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Phone1" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Phone2" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Fax" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CntctPrsn" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Notes" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Balance" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="ChecksBal" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="DNotesBal" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="OrdersBal" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="GroupNum" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="CreditLine" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="DebtLine" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="Discount" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="VatStatus" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="LicTradNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdctStatus" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdctPrcnt" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="ValidUntil" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="Chrctrstcs" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ExMatchNum" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="InMatchNum" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ListNum" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="DNoteBalFC" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="OrderBalFC" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="DNoteBalSy" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="OrderBalSy" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="Transfered" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BalTrnsfrd" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IntrstRate" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="Commission" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="CommGrCode" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="Free_Text" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SlpCode" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="PrevYearAc" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Currency" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="RateDifAct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BalanceSys" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="BalanceFC" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="Protected" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Cellular" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AvrageLate" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="City" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="County" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Country" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailCity" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailCounty" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailCountr" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="E_Mail" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Picture" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DflAccount" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DflBranch" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BankCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AddID" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Pager" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="FatherCard" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CardFName" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="FatherType" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup1" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup2" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup3" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup4" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup5" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup6" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup7" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup8" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup9" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup10" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup11" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup12" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup13" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup14" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup15" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup16" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup17" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup18" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup19" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup20" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup21" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup22" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup23" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup24" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup25" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup26" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup27" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup28" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup29" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup30" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup31" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup32" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup33" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup34" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup35" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup36" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup37" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup38" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup39" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup40" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup41" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup42" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup43" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup44" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup45" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup46" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup47" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup48" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup49" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup50" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup51" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup52" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup53" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup54" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup55" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup56" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup57" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup58" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup59" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup60" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup61" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup62" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup63" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="QryGroup64" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdctOffice" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CreateDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="UpdateDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="ExportCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DscntObjct" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="DscntRel" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SPGCounter" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="SPPCounter" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdctFileNo" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SCNCounter" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="MinIntrst" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="DataSource" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="OprCount" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ExemptNo" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Priority" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="CreditCard" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="CrCardNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CardValid" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="UserSign" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="LocMth" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="validFor" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="validFrom" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="validTo" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="frozenFor" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="frozenFrom" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="frozenTo" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="sEmployed" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MTHCounter" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="BNKCounter" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdgKey" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DdtKey" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ValidComm" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="FrozenComm" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="chainStore" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DiscInRet" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="State1" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="State2" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VatGroup" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="LogInstanc" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ObjType" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Indicator" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ShipType" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="DebPayAcct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ShipToDef" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Block" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailBlock" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Password" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ECVatGroup" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Deleted" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IBAN" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DocEntry" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="FormCode" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="Box1099" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="PymCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BackOrder" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="PartDelivr" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DunnLevel" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DunnDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="BlockDunn" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BankCountr" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CollecAuth" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DME" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="InstrucKey" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SinglePaym" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ISRBillId" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="PaymBlock" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="RefDetails" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HouseBank" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="OwnerIdNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="PyBlckDesc" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="HousBnkCry" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HousBnkAct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HousBnkBrn" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ProjectCod" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SysMatchNo" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="VatIdUnCmp" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AgentCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="TolrncDays" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="SelfInvoic" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DeferrTax" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="LetterNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MaxAmount" type="s:decimal"
-                                                  minOccurs="0"/>
-                                                <s:element name="FromDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="ToDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="WTLiable" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CrtfcateNO" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ExpireDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="NINum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AccCritria" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="WTCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Equ" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HldCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ConnBP" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MltMthNum" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="TypWTReprt" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VATRegNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="RepName" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Industry" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Business" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="WTTaxCat" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IsDomestic" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IsResident" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AutoCalBCG" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="OtrCtlAcct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AliasName" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Building" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailBuildi" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BoEPrsnt" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BoEDiscnt" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BoEOnClct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="UnpaidBoE" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ITWTCode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DunTerm" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ChannlBP" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DfTcnician" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="Territory" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="BillToDef" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DpmClear" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IntrntSite" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="LangCode" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="HousActKey" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="Profession" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CDPNum" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="DflBankKey" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="BCACode" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="UseShpdGd" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="RegNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VerifNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="BankCtlKey" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HousCtlKey" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AddrType" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="InsurOp347" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailAddrTy" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="StreetNo" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MailStrNo" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="TaxRndRule" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VendTID" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="ThreshOver" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="SurOver" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VendorOcup" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="OpCode347" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DpmIntAct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="ResidenNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="UserSign2" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="PlngGroup" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="VatIDNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Affiliate" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="MivzExpSts" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HierchDdct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CertWHT" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="CertBKeep" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="WHShaamGrp" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="IndustryC" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DatevAcct" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="DatevFirst" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="GTSRegNum" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="GTSBankAct" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="GTSBilAddr" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="NTSWebSite" type="s:short"
-                                                  minOccurs="0"/>
-                                                <s:element name="EDocExpFrm" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="TaxIdIdent" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HsBnkSwift" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="HsBnkIBAN" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DflSwift" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="DflIBAN" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="Attachment" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="AtcEntry" type="s:int"
-                                                  minOccurs="0"/>
-                                                <s:element name="U_NBS_CustRating" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="U_NBS_SerRating" type="s:string"
-                                                  minOccurs="0"/>
-                                                <s:element name="U_NBS_RateDate" type="s:dateTime"
-                                                  minOccurs="0"/>
-                                                <s:element name="U_NBS_RateNote" type="s:string"
-                                                  minOccurs="0"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CardCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CardName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="GroupCode" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PriceListNum" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TaxCode" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Terms" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SecondPhone" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipToAddress" type="tns:Address"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BillToAddress" type="tns:Address"/>
         </s:sequence>
       </s:complexType>
       <s:complexType name="Address">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AddressName" type="s:string" />
-
-          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Address3" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string"/>
         </s:sequence>
       </s:complexType>
-
       <s:element name="AddBPResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="AddBPResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="AddBPResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Invoice" type="tns:Document"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Document">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nbsGUID" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DocDueDate" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DocPostingDate" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Lines" type="tns:ArrayOfDocLine"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CardCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BillToAddress" type="tns:Address"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipToAddress" type="tns:Address"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PriceList" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerRef" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UDFs" type="tns:ArrayOfUDF"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocLine" nillable="true" type="tns:DocLine"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="WarehouseCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Qty" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="UnitPrice" type="s:double"/>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TaxCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UDFs" type="tns:ArrayOfUDF"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDF" nillable="true" type="tns:UDF"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddInvoiceResult" type="s:int"/>
           </s:sequence>
         </s:complexType>
       </s:element>
     </s:schema>
   </wsdl:types>
-
   <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
+    <wsdl:part name="parameters" element="tns:HelloWorld"/>
   </wsdl:message>
   <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse"/>
   </wsdl:message>
   <wsdl:message name="ConnectedSoapIn">
-    <wsdl:part name="parameters" element="tns:Connected" />
+    <wsdl:part name="parameters" element="tns:Connected"/>
   </wsdl:message>
-
   <wsdl:message name="ConnectedSoapOut">
-    <wsdl:part name="parameters" element="tns:ConnectedResponse" />
+    <wsdl:part name="parameters" element="tns:ConnectedResponse"/>
   </wsdl:message>
   <wsdl:message name="IsAliveSoapIn">
-    <wsdl:part name="parameters" element="tns:IsAlive" />
+    <wsdl:part name="parameters" element="tns:IsAlive"/>
   </wsdl:message>
   <wsdl:message name="IsAliveSoapOut">
-    <wsdl:part name="parameters" element="tns:IsAliveResponse" />
+    <wsdl:part name="parameters" element="tns:IsAliveResponse"/>
   </wsdl:message>
-
+  <wsdl:message name="AddUDFsSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUDFs"/>
+  </wsdl:message>
+  <wsdl:message name="AddUDFsSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUDFsResponse"/>
+  </wsdl:message>
   <wsdl:message name="GetDataTableSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDataTable" />
+    <wsdl:part name="parameters" element="tns:GetDataTable"/>
   </wsdl:message>
   <wsdl:message name="GetDataTableSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDataTableResponse" />
+    <wsdl:part name="parameters" element="tns:GetDataTableResponse"/>
   </wsdl:message>
   <wsdl:message name="AddBPSoapIn">
-    <wsdl:part name="parameters" element="tns:AddBP" />
+    <wsdl:part name="parameters" element="tns:AddBP"/>
   </wsdl:message>
-
   <wsdl:message name="AddBPSoapOut">
-    <wsdl:part name="parameters" element="tns:AddBPResponse" />
+    <wsdl:part name="parameters" element="tns:AddBPResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:AddInvoice"/>
+  </wsdl:message>
+  <wsdl:message name="AddInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:AddInvoiceResponse"/>
   </wsdl:message>
   <wsdl:portType name="ServiceSoap">
     <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldSoapIn" />
-      <wsdl:output message="tns:HelloWorldSoapOut" />
+      <wsdl:input message="tns:HelloWorldSoapIn"/>
+      <wsdl:output message="tns:HelloWorldSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="Connected">
-
-      <wsdl:input message="tns:ConnectedSoapIn" />
-      <wsdl:output message="tns:ConnectedSoapOut" />
+      <wsdl:input message="tns:ConnectedSoapIn"/>
+      <wsdl:output message="tns:ConnectedSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="IsAlive">
-      <wsdl:input message="tns:IsAliveSoapIn" />
-      <wsdl:output message="tns:IsAliveSoapOut" />
+      <wsdl:input message="tns:IsAliveSoapIn"/>
+      <wsdl:output message="tns:IsAliveSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddUDFs">
+      <wsdl:input message="tns:AddUDFsSoapIn"/>
+      <wsdl:output message="tns:AddUDFsSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="GetDataTable">
-      <wsdl:input message="tns:GetDataTableSoapIn" />
-
-      <wsdl:output message="tns:GetDataTableSoapOut" />
+      <wsdl:input message="tns:GetDataTableSoapIn"/>
+      <wsdl:output message="tns:GetDataTableSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="AddBP">
-      <wsdl:input message="tns:AddBPSoapIn" />
-      <wsdl:output message="tns:AddBPSoapOut" />
+      <wsdl:input message="tns:AddBPSoapIn"/>
+      <wsdl:output message="tns:AddBPSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddInvoice">
+      <wsdl:input message="tns:AddInvoiceSoapIn"/>
+      <wsdl:output message="tns:AddInvoiceSoapOut"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document"/>
       <wsdl:input>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
     <wsdl:operation name="Connected">
-      <soap:operation soapAction="http://tempuri.org/Connected" style="document" />
+      <soap:operation soapAction="http://tempuri.org/Connected" style="document"/>
       <wsdl:input>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
     <wsdl:operation name="IsAlive">
-      <soap:operation soapAction="http://tempuri.org/IsAlive" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IsAlive" style="document"/>
       <wsdl:input>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
+    <wsdl:operation name="AddUDFs">
+      <soap:operation soapAction="http://tempuri.org/AddUDFs" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDataTable">
-      <soap:operation soapAction="http://tempuri.org/GetDataTable" style="document" />
+      <soap:operation soapAction="http://tempuri.org/GetDataTable" style="document"/>
       <wsdl:input>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
     <wsdl:operation name="AddBP">
-      <soap:operation soapAction="http://tempuri.org/AddBP" style="document" />
+      <soap:operation soapAction="http://tempuri.org/AddBP" style="document"/>
       <wsdl:input>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal" />
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
+    <wsdl:operation name="AddInvoice">
+      <soap:operation soapAction="http://tempuri.org/AddInvoice" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
-    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document"/>
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Connected">
-      <soap12:operation soapAction="http://tempuri.org/Connected" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/Connected" style="document"/>
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="IsAlive">
-      <soap12:operation soapAction="http://tempuri.org/IsAlive" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/IsAlive" style="document"/>
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUDFs">
+      <soap12:operation soapAction="http://tempuri.org/AddUDFs" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetDataTable">
-      <soap12:operation soapAction="http://tempuri.org/GetDataTable" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/GetDataTable" style="document"/>
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="AddBP">
-      <soap12:operation soapAction="http://tempuri.org/AddBP" style="document" />
+      <soap12:operation soapAction="http://tempuri.org/AddBP" style="document"/>
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
-
-        <soap12:body use="literal" />
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddInvoice">
+      <soap12:operation soapAction="http://tempuri.org/AddInvoice" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="http://ts2.nbs-us.com/TestWS/Service.asmx" />
+      <soap:address location="http://wstest/SexingTechWSsetup/Service.asmx"/>
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-
-      <soap12:address location="http://ts2.nbs-us.com/TestWS/Service.asmx" />
+      <soap12:address location="http://wstest/SexingTechWSsetup/Service.asmx"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
