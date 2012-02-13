@@ -1,5 +1,8 @@
 package com.cxf.demo
 
+// These imports are available after running wsdl2java
+
+
 import com.sexingtechnologies.b1ws.LoginServiceSoap
 import com.xmlme.ShakespeareSoap
 import com.xmlme.news.GetCustomNewsSoap
@@ -9,15 +12,9 @@ import javax.xml.datatype.DatatypeFactory
 import javax.xml.datatype.XMLGregorianCalendar
 import net.webbservicex.globalweather.GlobalWeatherSoap
 import net.webservicex.StockQuoteSoap
-// These imports are available after running wsdl2java
-import org.tempuri.Address
-import org.tempuri.BusinessPartner
-import org.tempuri.Document
 import org.tempuri.GetDataTableResponse.GetDataTableResult
 import uk.co.demon.DigDNS
-import org.tempuri.ArrayOfDocLine
-import org.tempuri.DocLine
-import org.tempuri.ArrayOfUDF
+import org.tempuri.*
 
 class DemoController { // all of the service client in this controller should work well without mods except for the SAP service.
 
@@ -37,8 +34,8 @@ class DemoController { // all of the service client in this controller should wo
     net.uhurucloud.ServiceSoap helloSAPClient
 
     GregorianCalendar calendar = new GregorianCalendar()
-    XMLGregorianCalendar xmlCreateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-08")
-    XMLGregorianCalendar xmlUpdateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-08")
+    XMLGregorianCalendar xmlCreateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-010T00:00:00")
+    XMLGregorianCalendar xmlUpdateDate = DatatypeFactory.newInstance().newXMLGregorianCalendar("2012-02-010T00:00:00")
 
     def index = {
         render(view: "/index")
@@ -52,30 +49,34 @@ class DemoController { // all of the service client in this controller should wo
 
         Address address = new Address(addressName: "Joe Berry (SAP WS Test)", address1: "22575 Highway 6 South", address2: "Navasota, Texas", postalCode: "77868", countryCode: "USA")
 
+        ArrayOfUDF arrayOfUDF = new ArrayOfUDF()
+
         // ArrayOfDocLine adds the line items to the Line Item list in the Invoice Document (but we don't know how yet).
         ArrayOfDocLine arrayOfDocLine = new ArrayOfDocLine()
-        arrayOfDocLine.docLines = new ArrayList<DocLine>()
-        // the arrayOfDocLine is commented out because the line items must be correctly valued.
-        /*arrayOfDocLine.docLines.add("one")
-        arrayOfDocLine.docLines.add("two")
-        arrayOfDocLine.docLines.add("three")*/
+//        arrayOfDocLine.docLines = arrayOfDocLine.getDocLines()
 
-        ArrayOfUDF arrayOfUDF = new ArrayOfUDF()
-        arrayOfUDF.udves = new ArrayList()
-        /*arrayOfUDF.udves.add("eins")
-        arrayOfUDF.udves.add("zwei")
-        arrayOfUDF.udves.add("drei")*/
+        DocLine docLine = new DocLine()
+        docLine.setComments("Test invoice via wstest")
+        docLine.setDescription("Test Invoice")
+        docLine.setItemCode("SEMENINV_0001")
+        docLine.setQty(1.0)
+        docLine.setTaxCode("EX")
+        docLine.setUDFs(arrayOfUDF)
+        docLine.setUnitPrice(4.4)
+        docLine.setWarehouseCode("NavSxSmB")
+
+        arrayOfDocLine.getDocLines().add(docLine)
 
         Document document = new Document(
                 billToAddress: address,
                 cardCode: "C00070",
                 comments: "WS Test",
-                customerRef: "45748-BD",
+                customerRef: "",
                 docDueDate: xmlUpdateDate,
                 docPostingDate: xmlCreateDate,
                 lines: arrayOfDocLine,
-                nbsGUID: "aguid", // this value is not correct
-                priceList: 1,
+                nbsGUID: "", // this value is not correct
+                priceList: 2,
                 shipToAddress: address,
                 udFs: arrayOfUDF
         )
@@ -108,11 +109,11 @@ class DemoController { // all of the service client in this controller should wo
         )
 //            getDataTableResult = serviceSoapClient.getDataTable("select * from OCRD where cardType = 'C' AND cardCode='C00070'")
 //            getDataTableResult = serviceSoapClient.getDataTable("SELECT name FROM sysobjects WHERE id IN ( SELECT id FROM syscolumns WHERE name = 'PRICELISTNUM')")
-            addBP = serviceSoapClient.addBP(businessPartner)
+//            addBP = serviceSoapClient.addBP(businessPartner)
 //            serviceSoapClient.addInvoice(document)
         } catch (Exception e) {
             println e
-            soapServiceException = new Exception(" addBP invocation threw an error ${e.getMessage()}")
+            soapServiceException = new Exception(" add invocation threw an error ${e.getMessage()}")
         }
 
         printOut(getDataTableResult.getAnies())
@@ -187,7 +188,7 @@ class DemoController { // all of the service client in this controller should wo
                helloWorld: helloWorld,
 //               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
                getDataTableResult: aCardCode,
-               addBP: addBP,
+//               addBP: addBP,
                addIvn: serviceSoapClient.addInvoice(document), // currently this is not working because of unknown required data type.
                soapServiceException: soapServiceException?.message ?: ""])
     }
