@@ -124,6 +124,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="ShipToAddress" type="tns:Address"/>
           <s:element minOccurs="1" maxOccurs="1" name="PriceList" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="CustomerRef" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipToCode" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UDFs" type="tns:ArrayOfUDF"/>
         </s:sequence>
       </s:complexType>

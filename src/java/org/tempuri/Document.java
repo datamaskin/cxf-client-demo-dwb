@@ -29,6 +29,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="ShipToAddress" type="{http://tempuri.org/}Address" minOccurs="0"/>
  *         &lt;element name="PriceList" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="CustomerRef" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ShipToCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="UDFs" type="{http://tempuri.org/}ArrayOfUDF" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -50,6 +51,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "shipToAddress",
     "priceList",
     "customerRef",
+    "shipToCode",
     "udFs"
 })
 public class Document {
@@ -75,6 +77,8 @@ public class Document {
     protected int priceList;
     @XmlElement(name = "CustomerRef")
     protected String customerRef;
+    @XmlElement(name = "ShipToCode")
+    protected String shipToCode;
     @XmlElement(name = "UDFs")
     protected ArrayOfUDF udFs;
 
@@ -308,6 +312,30 @@ public class Document {
      */
     public void setCustomerRef(String value) {
         this.customerRef = value;
+    }
+
+    /**
+     * Gets the value of the shipToCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getShipToCode() {
+        return shipToCode;
+    }
+
+    /**
+     * Sets the value of the shipToCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setShipToCode(String value) {
+        this.shipToCode = value;
     }
 
     /**
