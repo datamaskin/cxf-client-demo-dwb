@@ -20,6 +20,44 @@
   <g:form action="serviceSoapTest" controller="demo" name="serviceSoapTest">
     <fieldset>
     <legend>Invoke SAP Services</legend>
+        <input name="aCardCode" type="text" value="${params.aCardCode ?: 'CardCode'}" onclick="if (this.value=='CardCode') {this.value = '';}" />
+        <h5>Create BP</h5>
+        <label>Enabled: <input id="rbp" type="radio" name="Enable" value="bp"></label>
+        <br>
+        <input name="grpn" type="text" value="${params.groupName ?: 'GroupName'}" onclick="if (this.value=='GroupName') {this.value = '';}" />
+        <input name="pl" type="text" value="${params.priceList ?: 'PriceList'}" onclick="if (this.value=='PriceList') {this.value = '';}" />
+        <input name="ph" type="text" value="${params.phone ?: 'phone'}" onclick="if (this.value=='phone') {this.value = '';}" />
+        <input name="email" type="text" value="${params.email ?: 'email'}" onclick="if (this.value=='email') {this.value = '';}" />
+        <input name="sp" type="text" value="${params.sp ?: 'SecondPhone'}" onclick="if (this.value=='SecondPhone') {this.value = '';}" />
+        <input name="fax" type="text" value="${params.fax ?: 'Fax'}" onclick="if (this.value=='Fax') {this.value = '';}" />
+        <br>
+        <hr>
+        <br>
+        <h5>Create Address (Bill To/Ship To)</h5>
+        <br>
+        <input name="addressName" type="text" value="${params.an ?: 'AddressName'}" onclick="if (this.value=='AddressName') {this.value = '';}" />
+        <input name="address1" type="text" value="${params.add1 ?: 'Address1'}" onclick="if (this.value=='Address1') {this.value = '';}" />
+        <input name="city" type="text" value="${params.cty ?: 'City'}" onclick="if (this.value=='City') {this.value = '';}" />
+        <input name="state" type="text" value="${params.ste ?: 'State'}" onclick="if (this.value=='State') {this.value = '';}" />
+        <input name="postalCode" type="text" value="${params.pc ?: 'PostalCode'}" onclick="if (this.value=='PostalCode') {this.value = '';}" />
+        <input name="countryCode" type="text" value="${params.cc ?: 'CountryCode'}" onclick="if (this.value=='CountryCode') {this.value = '';}" />
+        <hr>
+        <br>
+        <h5>Create Invoice</h5>
+        <label>Enabled: <input id="rinv" type="radio" name="Enable" value="inv"></label><BR>
+        <input name="cardName" type="text" value="${params.cardName ?: 'CardName'}" onclick="if (this.value=='CardName') {this.value = '';}" />
+        %{--<input name="addressName" type="text" value="${params.an ?: 'AddressName'}" onclick="if (this.value=='AddressName') {this.value = '';}" />--}%
+        <input name="grpn" type="text" value="${params.groupName ?: 'GroupName'}" onclick="if (this.value=='GroupName') {this.value = '';}" />
+        <input name="pl" type="text" value="${params.priceList ?: 'PriceList'}" onclick="if (this.value=='PriceList') {this.value = '';}" />
+        <br><hr><br>
+        <h5>Create Line Item</h5>
+        <input name="cmmt" type="text" value="${params.comment ?: 'Comment'}" onclick="if (this.value=='Comment') {this.value = '';}" />
+        <input name="desc" type="text" value="${params.desc ?: 'Description'}" onclick="if (this.value=='Description') {this.value = '';}" />
+        <input name="itemCode" type="text" value="${params.itemCode ?: 'ItemCode'}" onclick="if (this.value=='ItemCode') {this.value = '';}" />
+        <input name="quantity" type="text" value="${params.quantity ?: 'Quantity'}" onclick="if (this.value=='Quantity') {this.value = '';}" />
+        <input name="taxCode" type="text" value="${params.taxCode ?: 'TaxCode'}" onclick="if (this.value=='TaxCode') {this.value = '';}" />
+        <input name="unitP" type="text" value="${params.unitP ?: 'DiscountPrice'}" onclick="if (this.value=='DiscountPrice') {this.value = '';}" />
+        <input name="whsCode" type="text" value="${params.whsCode ?: 'WareHouseCode'}" onclick="if (this.value=='WareHouseCode') {this.value = '';}" />
     <div style="width:100%"><g:submitButton name="submitButton" value="Invoke"/></div>
     </fieldset>
   </g:form>

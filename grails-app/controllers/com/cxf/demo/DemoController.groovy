@@ -44,21 +44,45 @@ class DemoController { // all of the service client in this controller should wo
     }
 
     def serviceSoapTest = { // this client runs all of the SAP operations: Add BusinessPartner (customer) and Add Invoice
-        String addBusinessPartner = "", helloWorld = "", aCardCode = ""
+        def addBusinessPartner = "", helloWorld = "", aCardCode = params.aCardCode, shipToCode = params.stc, comment = params.cmmt,
+        desc = params.desc, anItemCode = params.itemCode, aTaxCode = params.taxCode, aWareHouseCode = params.whsCode, aCardName = params.cardName,
+        groupName = params.grpn, phoneNum = params.ph, aSecondPhone = params.secondPhone, aMobilePhone = params.mobilePhone,
+        aFax = params.fax, priceListName = params.pl, anEmail = params.email, addressName = params.an, address1 = params.address1,
+        city = params.city, state = params.state, postalCode = params.postalCode, countryCode = params.countryCode, enabled = params.Enable,
+        qtyStr = params.quantity, unitpStr = params.unitP
+
+//        double quantity = 0.0, unitP = 0.0
+
         Boolean isConnected = false, isAlive = false, addBP = false
-        GetDataTableResult getDataTableResult = null
+        GetDataTableResult getDataTableResult = null, getGroupName = null, getGroupCode = null, getPriceListNum = null, getPriceListName = null,
+                            getCardCodeList = null, getPriceListNames = null, getShipToCode = null, getCardCode = null, getAddressName = null,
+                            getAddr1 = null, getCity = null, getState = null, getPostalCode = null, getCountryCode = null
         AddInvoiceResponse addInvoiceResponse = null
-        int invNum = 0
+        def invNum = 0, pList = 0, aGroupCode = 0, aTerms = 0, quantity = qtyStr.toDouble(), unitP = unitpStr.toDouble()
         Exception soapServiceException = null
 
         Address address = new Address(addressName: "Joe Berry (SAP WS Test)", address1: "22575 Highway 6 South", address2: "Navasota, Texas", postalCode: "77868", countryCode: "USA")
-        Address address1 = new Address(addressName: "David Brown (SAP WS Test)", address1: "919 Navidad", address2: "Bryan, Texas", postalCode: "77801", countryCode: "USA")
-        String selectedShipToCode = "David Brown (SAP WS Test)"
+        Address address_1 = new Address(addressName: "David Brown (SAP WS Test)", address1: "919 Navidad", address2: "Bryan, Texas", postalCode: "77801", countryCode: "USA")
+        Address billTo = new Address(addressName: params.an, address1: params.add1, address2: "", address3: "", city: params.cty, state: params.ste, postalCode: params.pc, countryCode: params.cc)
+        Address shipTo = new Address(addressName: params.an, address1: params.add1, address2: "", address3: "", city: params.cty, state: params.ste, postalCode: params.pc, countryCode: params.cc)
+
+        println("params = " + params)
+
+        def selectedShipToCode = "David Brown (SAP WS Test)"
+
+
+        UDF udf = new UDF(
+            name: "",
+            value: ""
+        )
+
         ArrayOfUDF arrayOfUDF = new ArrayOfUDF()
+
+//        arrayOfUDF.getUDVES().add(udf)
 
         // ArrayOfDocLine adds the line items to the Line Item list in the Invoice Document (but we don't know how yet).
         ArrayOfDocLine arrayOfDocLine = new ArrayOfDocLine()
-//        arrayOfDocLine.docLines = arrayOfDocLine.getDocLines()
+        ArrayOfDocLine arrayOfDocLine1 = new ArrayOfDocLine()
 
         DocLine docLine = new DocLine()
         docLine.setComments("Test invoice via wstest")
@@ -68,67 +92,58 @@ class DemoController { // all of the service client in this controller should wo
         docLine.setTaxCode("EX")
         docLine.setUDFs(arrayOfUDF)
         docLine.setUnitPrice(9.9)
-        docLine.setWarehouseCode("NavSxSmB")
+        docLine.setWarehouseCode("NavaSort")
 
-        arrayOfDocLine.getDocLines().add(docLine)
-
-        Document document = new Document(
-                billToAddress: address1,
-                cardCode: "",
-                comments: "WS Test",
-                customerRef: "",
-                docDueDate: xmlUpdateDate,
-                docPostingDate: xmlCreateDate,
-                lines: arrayOfDocLine,
-                nbsGUID: "",
-                priceList: 2,
-                shipToAddress: address1,
-                shipToCode: selectedShipToCode,
-                udFs: arrayOfUDF
+        DocLine docLine1 = new DocLine(
+            comments: comment,
+            description: desc,
+            itemCode: anItemCode,
+            qty: quantity,
+            taxCode: aTaxCode,
+            udFs: arrayOfUDF,
+            unitPrice: unitP,
+            warehouseCode: aWareHouseCode
         )
 
-        BusinessPartner businessPartner
+        arrayOfDocLine1.getDocLines().add(docLine1)
+
+        Document document = new Document( // most of these values are found in the SAP B1: Contents', Logistics' tab & Item Master Data
+            billToAddress: billTo,
+            cardCode: "",
+            comments: "WS Test",
+            customerRef: "",
+            docDueDate: xmlUpdateDate,
+            docPostingDate: xmlCreateDate,
+            lines: arrayOfDocLine,
+            nbsGUID: "",
+            priceList: 2,
+            shipToAddress: shipTo,
+            shipToCode: selectedShipToCode,
+            udFs: arrayOfUDF
+        )
+
+        Document document1 = new Document(
+            billToAddress: billTo,
+            cardCode: aCardCode,
+            comments: comment,
+            customerRef: "",
+            docDueDate: xmlUpdateDate,
+            docPostingDate: xmlCreateDate,
+            lines: arrayOfDocLine1,
+            nbsGUID: "",
+            priceList: pList,
+            shipToAddress: shipTo,
+            shipToCode: addressName,
+            udFs: arrayOfUDF
+        )
+
+        BusinessPartner businessPartner, businessPartner1
 
         try { // all of the soapServices are executed here
-            isConnected = serviceSoapClient.connected()
             isAlive = serviceSoapClient.isAlive()
+            isConnected = serviceSoapClient.connected()
             helloWorld = serviceSoapClient.helloWorld()
-//            getDataTableResult = serviceSoapClient.getDataTable("select cardName, groupCode from OCRD where cardCode='C00106'")
-//          Following query fetches the next valic CardCode
-//            getDataTableResult = serviceSoapClient.getDataTable("SELECT 'C' + replace(str(MAX(convert(decimal,substring(CardCode,2,5)))+1,5,0),' ','0') FROM OCRD WHERE cardcode>='C00000' and cardcode<'C99999' and cardtype='C'")
-//          Following query fetches the valid CardCode against the ShipToCode
-            getDataTableResult = serviceSoapClient.getDataTable("SELECT DISTINCT CardCode FROM CRD1 WHERE Address = '${selectedShipToCode}'")
-
-            // parse raw SOAP
-            String xml = getDataTableResult.getAnies().toListString()
-            println "xml = ${xml}" // before and after
-            /*xml = xml.trim().replaceFirst("^([^<]+)<", "<") // a lot of cleanup to make the SAX parser happy
-            xml = xml.trim().replaceFirst(">([^>]+)\$", ">")*/
-            if(xml.endsWith(']'))
-                xml = xml.trim().substring(0,xml.length()-1)
-            xml = xml.trim().replaceAll("\\r|\\n", "") // mssql sends back windows shit
-            String[] xmlTmp = xml.trim().split(",")
-            xml = xmlTmp[1] // get the diffgram side
-            xml = xml.trim().stripIndent()
-
-            println "xml = ${xml}"
-            def bp = new XmlParser().parseText(xml)
-            def bpSlurp = new XmlSlurper().parseText(xml)
-            println "bp.name = ${bp.name()}"
-            println "bpSlurp.name ${bpSlurp.name()}"
-
-            bpSlurp.name().eachLine {
-                it.eachLine {
-                    println "it = ${it}"
-                }
-            }
-
-            bpSlurp.find { found ->
-                if(bpSlurp.name().equalsIgnoreCase("diffgram"))
-                    aCardCode = "${found}"
-                    println "found diffgram = ${aCardCode}"
-            }
-
+            def xml = ""
             businessPartner = new BusinessPartner( // do not run this code without changing the cardCode to the next new value
                 cardCode: aCardCode,
                 cardName: "Brown, David",
@@ -141,110 +156,156 @@ class DemoController { // all of the service client in this controller should wo
                 secondPhone: "(111) 111-1111",
                 mobilePhone: "(999) 999-9999",
                 fax: "(222) 222-2222",
-                shipToAddress: address1,
-                billToAddress: address1
-        )
+                shipToAddress: shipTo,
+                billToAddress: billTo
+            )
 
-//            addBP = serviceSoapClient.addBP(businessPartner)
-            document.setCardCode(aCardCode)
-            addInvoiceResponse.addInvoiceResult = serviceSoapClient.addInvoice(document)
-            invNum = addInvoiceResponse.addInvoiceResult
+            businessPartner1 = new BusinessPartner(
+                cardCode: aCardCode,
+                cardName: aCardName,
+                groupCode: aGroupCode,
+                priceListNum: pList,
+                phone: phoneNum,
+                email: anEmail,
+                taxCode: aTaxCode,
+                terms: aTerms,
+                secondPhone: aSecondPhone,
+                mobilePhone: aMobilePhone,
+                fax: aFax,
+                shipToAddress: shipTo,
+                billToAddress: billTo
+            )
+
+            if(isAlive && isConnected && enabled.equalsIgnoreCase("bp")) { // add a BP
+//          Following query fetches the next valid CardCode
+                getDataTableResult = serviceSoapClient.getDataTable("SELECT 'C' + replace(str(MAX(convert(decimal,substring(CardCode,2,5)))+1,5,0),' ','0') FROM OCRD WHERE cardcode>='C00000' and cardcode<'C99999' and cardtype='C'")
+                xml = getDataTableResult.getAnies().toListString()
+                aCardCode = getDiffGram(xml)
+                getGroupCode = serviceSoapClient.getDataTable("SELECT GroupCode FROM OCRG WHERE GroupName = '${groupName[1]}'")
+                xml = getGroupCode.getAnies().toListString()
+                aGroupCode = getDiffGram(xml).toInteger()
+                businessPartner1.setGroupCode(aGroupCode)
+                addBP = serviceSoapClient.addBP(businessPartner1)
+            }
+            else if(isAlive && isConnected && enabled.equalsIgnoreCase("inv")) {
+                getCardCode = serviceSoapClient.getDataTable("SELECT DISTINCT CardCode FROM OINV WHERE CARDNAME = '${aCardName}'")
+                xml = getCardCode.getAnies().toListString()
+                aCardCode = getDiffGram(xml)
+                document1.setCardCode(aCardCode.toString())
+                println "aCardCode = ${aCardCode}"
+
+                getPriceListNum = serviceSoapClient.getDataTable("SELECT ListNum FROM OPLN WHERE ListName = '${priceListName[1]}'")
+                xml = getPriceListNum.getAnies().toListString()
+                pList = getDiffGram(xml).toInteger()
+                document1.setPriceList(pList)
+                println "pList = ${pList}"
+
+                getShipToCode = serviceSoapClient.getDataTable("SELECT DISTINCT Address FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getShipToCode.getAnies().toListString()
+                addressName = getDiffGram(xml)
+                document1.setShipToCode(addressName.toString())
+                println "addressName = ${addressName}"
+
+                billTo.setAddressName(addressName.toString())
+                shipTo.setAddressName(addressName.toString())
+
+                getAddr1 = serviceSoapClient.getDataTable("SELECT DISTINCT Street FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getAddr1.getAnies().toListString()
+                address1 = getDiffGram(xml)
+                billTo.setAddress1(address1.toString())
+                shipTo.setAddress1(address1.toString())
+                println "address1 = ${address1}"
+
+                getCity = serviceSoapClient.getDataTable("SELECT DISTINCT City FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getCity.getAnies().toListString()
+                city = getDiffGram(xml)
+                billTo.setCity(city.toString())
+                shipTo.setCity(city.toString())
+                println "city = ${city}"
+
+                getState = serviceSoapClient.getDataTable("SELECT DISTINCT State FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getState.getAnies().toListString()
+                state = getDiffGram(xml)
+                billTo.setState(state.toString())
+                shipTo.setState(state.toString())
+                println "state = ${state}"
+
+                getPostalCode = serviceSoapClient.getDataTable("SELECT DISTINCT ZipCode FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getPostalCode.getAnies().toListString()
+                postalCode = getDiffGram(xml)
+                billTo.setPostalCode(postalCode.toString())
+                shipTo.setPostalCode(postalCode.toString())
+                println "postalCode = ${postalCode}"
+
+                getCountryCode = serviceSoapClient.getDataTable("SELECT DISTINCT Country FROM CRD1 WHERE CardCode = '${aCardCode}'")
+                xml = getCountryCode.getAnies().toListString()
+                countryCode = getDiffGram(xml)
+                billTo.setCountryCode(countryCode.toString())
+                shipTo.setCountryCode(countryCode.toString())
+                println "countryCode = ${countryCode}"
+
+                /*getDataTableResult = serviceSoapClient.getDataTable("SELECT DISTINCT CardCode FROM CRD1 WHERE Address = '${addressName}'")
+                xml = getDataTableResult.getAnies().toListString()
+                aCardCode = getDiffGram(xml)
+                document1.setCardCode(aCardCode.toString())*/
+                /*println "docLine1.comments  = ${docLine1.comments}"
+                println "docLine1.itemCode = ${docLine1.itemCode}"
+                println "docLine1.qty = ${docLine1.qty}"
+                println "docLine1.taxCode = ${docLine1.taxCode}"
+                println "docLine1.unitPrice = ${docLine1.unitPrice}"
+                println "docLine1.warehouseCode = ${docLine1.warehouseCode}"*/
+//                document1.setLines(arrayOfDocLine1)
+
+                invNum = serviceSoapClient.addInvoice(document1).intValue()
+//                invNum = addInvoiceResponse.addInvoiceResult.intValue()
+            }
+
         } catch (Exception e) {
             println e
-            soapServiceException = new Exception(" add invocation threw an error ${e.getMessage()}")
+            soapServiceException = new Exception(" Server exception: ${e.getMessage()}")
         }
 
-        printOut(getDataTableResult.getAnies())
+        render(view: '/index', model: [isAlive: isAlive,
+               isConnected: isConnected,
+               helloWorld: helloWorld,
+               getDataTableResult: aCardCode,
+               addBP: addBP,
+               addIvn: invNum,
+               soapServiceException: soapServiceException?.message ?: ""])
+    }
 
-        // The commented out code below was used to clean up the old SOAP response from the old NBS test service for AddBP (http://ts2.nbs-us.com/TestWS/Service.asmx)
-//        String xml = getDataTableResult.getAnies().toListString()
-        /*xml = xml.trim().replaceFirst("^([^<]+)<", "<") // a lot of cleanup to make the SAX parser happy
-        xml = xml.trim().replaceFirst(">([^>]+)\$", ">")*/
-        /*xml = xml.trim().substring(0,xml.length()-1)
-        xml = xml.trim().replaceAll("\\r|\\n", "")
+    def getDiffGram (xml) {
+        if(xml.startsWith('['))
+            xml = xml.substring(1,xml.length())
+        if(xml.endsWith(']'))
+                xml = xml.trim().substring(0,xml.length()-1)
+        xml = xml.trim().replaceAll("\\r|\\n", "") // mssql sends back windows shit
         String[] xmlTmp = xml.trim().split(",")
-        xml = xmlTmp[1]
+        xml = xmlTmp[1] // get the diffgram side
         xml = xml.trim().stripIndent()
 
         println "xml = ${xml}"
-        def bp = new XmlParser().parseText(xml)
-        def bpSlurp = new XmlSlurper().parseText(xml)
-        println "bp.name = ${bp.name()}"
-        println "bpSlurp.name ${bpSlurp.name()}"
-
-        bpSlurp.name().eachLine {
+        def fp = new XmlParser().parseText(xml)
+        def fpSlurp = new XmlSlurper().parseText(xml)
+        println "fp.name = ${fp.name()}"
+        println "fpSlurp.name ${fpSlurp.name()}"
+        assert fpSlurp.name() == "diffgram"
+        fpSlurp.name().eachLine {
             it.eachLine {
                 println "it = ${it}"
             }
         }
 
-        bpSlurp.find { found ->
-            if(bpSlurp.name().equalsIgnoreCase("diffgram"))
+        fpSlurp.find { found ->
+            if(fpSlurp.name().equalsIgnoreCase("diffgram")) {
                 println "found diffgram = ${found}"
+                return found
+            } else
+                return null
         }
-
-        println "depthFirst = ${bp.depthFirst()}"
-        println "breadthFirst = ${bp.breadthFirst()}"
-        def allNodes = bp.depthFirst().collect { it }
-        println "allNodes.size = ${allNodes.size()}"
-        println "bp.size = ${bp.children().size()}"
-        def bpSublist = bp.children().subList(0,1)
-        println "bpSublist.size = ${bpSublist.size()}"
-        println "bpSublist = ${bpSublist}"
-        def slurpNodes = bpSlurp.breadthFirst().collect{ it }
-        println "slurpNodes = " + slurpNodes
-        println "slurpNodes.size = ${slurpNodes.size()}"
-        println "slurpNodes.subList = ${slurpNodes.subList(1,2)}"
-        println "slurpNodes.subList = ${slurpNodes.subList(2,3)}"
-        println "slurpNodes.subList = ${slurpNodes.subList(3,4)}"
-
-        bp.children().each {
-            println "bp.children.each.name = ${it.name()}"
-        }
-
-        bpSlurp.children().each {
-            if(bpSlurp.children().name().equalsIgnoreCase("DocumentElement"))
-                println "bpSlurp.children.each.name = ${it.name()}"
-        }
-
-        bpSlurp.children().each {
-            println "bpSlurp.children.each.attribute = ${it.attributes()}"
-        }
-
-        def allSlurp = bpSlurp.breadthFirst()
-
-        while (allSlurp.hasNext()) {
-            println "allSlurp.next = ${allSlurp.next()}"
-        }
-
-        println "slurpName = ${bpSlurp.name()}"
-
-        println "slurpProps = ${bpSlurp.breadthFirst().properties}"*/
-
-        render(view: '/index', model: [isConnected: isConnected,
-               isAlive: isAlive,
-               helloWorld: helloWorld,
-//               getDataTableResult: "${slurpNodes.subList(3,4)} ${slurpNodes.subList(4,5)} ${slurpNodes.subList(5,6)}" ,
-               getDataTableResult: aCardCode,
-//               addBP: addBP,
-               addIvn: invNum,
-               soapServiceException: soapServiceException?.message ?: ""])
-    }
-
-    def getCardCode (cardNo) {
-        def re = /([0-9]+)/
-        def matcher = (cardNo =~ re)
-        return matcher[0][1]
     }
 
     private void printOut(elem) {
-        println elem
-        elem?.childNodes.each {
-            printOut it
-        }
-    }
-
-    private String printOutStr(elem) {
         println elem
         elem?.childNodes.each {
             printOut it
