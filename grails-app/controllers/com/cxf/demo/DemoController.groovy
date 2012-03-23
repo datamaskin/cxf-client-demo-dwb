@@ -72,13 +72,13 @@ class DemoController { // all of the service client in this controller should wo
 
 
         UDF udf = new UDF(
-            name: "",
-            value: ""
+            name: "U_ICOTERM",
+            value: "444AA99999"
         )
 
         ArrayOfUDF arrayOfUDF = new ArrayOfUDF()
 
-//        arrayOfUDF.getUDVES().add(udf)
+        arrayOfUDF.getUDVES().add(udf)
 
         // ArrayOfDocLine adds the line items to the Line Item list in the Invoice Document (but we don't know how yet).
         ArrayOfDocLine arrayOfDocLine = new ArrayOfDocLine()
@@ -256,8 +256,8 @@ class DemoController { // all of the service client in this controller should wo
                 println "docLine1.warehouseCode = ${docLine1.warehouseCode}"*/
 //                document1.setLines(arrayOfDocLine1)
 
-                invNum = serviceSoapClient.addInvoice(document1).intValue()
-//                invNum = addInvoiceResponse.addInvoiceResult.intValue()
+                serviceSoapClient.addInvoice(document1).intValue()
+                invNum = addInvoiceResponse.addInvoiceResult.intValue()
             }
 
         } catch (Exception e) {
